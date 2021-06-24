@@ -26,6 +26,11 @@ func Init() {
 			msg := c.QueryParam("msg")
 			return c.JSON(http.StatusOK, services.PushMessage(msg))
 		})
+		orders.POST("/users/:id", func(c echo.Context) error {
+			id, _ := strconv.Atoi(c.Param("id"))
+			return c.JSON(http.StatusOK, services.GetUserById(uint(id)))
+			//return c.JSON(http.StatusOK, services.PushMessage(msg))
+		})
 	}
 
 	e.Logger.Fatal(e.Start(":1313"))
