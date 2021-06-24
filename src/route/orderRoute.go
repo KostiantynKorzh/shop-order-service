@@ -22,6 +22,10 @@ func Init() {
 		orders.POST("/", func(c echo.Context) error {
 			return c.JSON(http.StatusOK, services.CreateNewOrder())
 		})
+		orders.POST("/rabbit-test", func(c echo.Context) error {
+			msg := c.QueryParam("msg")
+			return c.JSON(http.StatusOK, services.PushMessage(msg))
+		})
 	}
 
 	e.Logger.Fatal(e.Start(":1313"))

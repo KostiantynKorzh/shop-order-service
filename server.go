@@ -3,6 +3,7 @@ package main
 import (
 	"order-service/src/db"
 	"order-service/src/model"
+	"order-service/src/rabbit"
 	"order-service/src/route"
 )
 
@@ -13,6 +14,7 @@ func initDb() {
 
 func main() {
 
+	rabbit.Init()
 	initDb()
 	route.Init()
 
