@@ -11,7 +11,8 @@ import (
 )
 
 func GetUserById(id uint) model.User {
-	resp, err := http.Get(fmt.Sprint(os.Getenv("USER_SERVICE_URL"), id))
+	url := fmt.Sprint(os.Getenv("USER_SERVICE_URL"), id)
+	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatalln(err)
 	}

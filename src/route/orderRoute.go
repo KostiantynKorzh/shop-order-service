@@ -29,7 +29,6 @@ func Init() {
 		orders.POST("/users/:id", func(c echo.Context) error {
 			id, _ := strconv.Atoi(c.Param("id"))
 			return c.JSON(http.StatusOK, services.GetUserById(uint(id)))
-			//return c.JSON(http.StatusOK, services.PushMessage(msg))
 		})
 	}
 

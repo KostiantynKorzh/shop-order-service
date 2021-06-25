@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  labels:
+    app: demo-shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-shop
+  template:
+    metadata:
+      labels:
+        app: demo-shop
+    spec:
+      containers:
+        - name: order-service-container
+          image: order-service
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 1313
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root1234
+            - name: MYSQL_URL
+              value: 18.192.254.230
+            - name: USER_SERVICE_URL
+              value: http://user-service:8082/users/
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+spec:
+  selector:
+    app: demo-shop
+  ports:
+    - port: 1313
+      targetPort: 1313
+  type: LoadBalancer

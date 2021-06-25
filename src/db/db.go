@@ -14,7 +14,7 @@ func InitDb() *gorm.DB {
 }
 
 func connectDb() *gorm.DB {
-	dsn := "root:" + os.Getenv("MYSQL_ROOT_PASSWORD") + "@tcp(localhost:3306)/order_service_db"
+	dsn := "root:" + os.Getenv("MYSQL_ROOT_PASSWORD") + "@tcp(" + os.Getenv("MYSQL_URL") + ":3306)/orders_db"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
