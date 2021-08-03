@@ -1,11 +1,14 @@
 package model
 
-import "gorm.io/gorm"
+import "time"
 
 type Order struct {
-	gorm.Model
+	ID         uint
 	UserId     uint
 	OrderItems []OrderItem `gorm:"foreignKey:OrderId"`
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
+	Status     string
 }
 
 type OrderItem struct {
