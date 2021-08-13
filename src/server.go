@@ -12,9 +12,6 @@ func initDb() {
 }
 
 func main() {
-
-	//rabbit.Init()
 	initDb()
 	route.Init()
-
 }

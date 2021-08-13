@@ -38,10 +38,6 @@ func Init() {
 			id, _ := strconv.Atoi(c.Param("id"))
 			return c.JSON(http.StatusOK, services.GetLastOrderForUserById(uint(id)))
 		})
-		orders.POST("/rabbit-test", func(c echo.Context) error {
-			msg := c.QueryParam("msg")
-			return c.JSON(http.StatusOK, services.PushMessage(msg))
-		})
 		orders.POST("/user-orders/:id", func(c echo.Context) error {
 			id, _ := strconv.Atoi(c.Param("id"))
 			services.Buy(uint(id))

@@ -1,7 +1,6 @@
 package services
 
 import (
-	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
@@ -105,28 +104,5 @@ func Buy(userId uint) {
 	var order = findActiveShoppingCartForUserById(userId)
 	db.Db.Model(&order).Updates(model.Order{Status: "PENDING PAYMENT"})
 
-	sendToPayments(order)
-}
-
-func sendToPayments(order model.Order) {
-	paymentServiceUrl := "http://localhost:8081/orders/" // TODO add real url
-	var orderItems []model.OrderItem
-	db.Db.Where("order_id = ?", order.ID).Find(&orderItems)
-	var totalAmount float64
-	for i, order := range FullOrder {
-		price := FullOrder[i].Price
-		temp := float64(order.Quantity) * price
-		totalAmount += temp // TODO Add price to order object
-	}
-	payment := model.OrderPayment{
-		UserId:      order.UserId,
-		OrderId:     order.ID,
-		TotalAmount: totalAmount,
-	}
-	b, _ := json.Marshal(&payment)
-	println(string(b))
-	resp, _ := http.Post(paymentServiceUrl, "application/json", bytes.NewBuffer(b))
-	defer resp.Body.Close()
-
-	println("sendToPayments")
+	SendOrderToPaymentService(order)
 }
