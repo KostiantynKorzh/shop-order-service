@@ -1,9 +1,9 @@
 package main
 
 import (
-	"order-service/src/db"
-	"order-service/src/model"
-	"order-service/src/route"
+	"order-service/db"
+	"order-service/model"
+	"order-service/route"
 )
 
 func initDb() {

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "/order-service/src";
+
+service PaymentService {
+
+  rpc SendOrderToPaymentService (OrderRequest) returns (OrderResponse) {}
+
+}
+
+message OrderRequest {
+  uint64 order_id = 1;
+  uint64 user_id = 2;
+  float total_amount = 3;
+}
+
+message OrderResponse {
+  string message = 1;
+}

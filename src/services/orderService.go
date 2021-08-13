@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"order-service/src/db"
-	"order-service/src/model"
+	"order-service/db"
+	"order-service/model"
 	"strconv"
 )
 
