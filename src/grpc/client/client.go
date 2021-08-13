@@ -2,13 +2,14 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"google.golang.org/grpc"
 	"log"
 	pb "order-service/grpc/proto"
 )
 
 func main() {
-	conn, err := grpc.Dial(":50000", grpc.WithInsecure())
+	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("fail to dial: %v", err)
 	}
@@ -20,9 +21,10 @@ func main() {
 		UserId:      3,
 		TotalAmount: 33.33,
 	}
-	resp, err := client.SendOrderToPaymentService(context.Background(), in)
+	fmt.Println(in)
+	resp, err := client.ProcessPayment(context.Background(), in)
 	if err != nil {
 		log.Fatalf("open stream error %v", err)
 	}
-	log.Printf(resp.String())
+	fmt.Println(resp.String())
 }

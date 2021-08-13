@@ -1,10 +1,12 @@
 syntax = "proto3";
 
-option go_package = "/order-service/src";
+option go_package = "/payment_service";
+
+package payment_service;
 
 service PaymentService {
 
-  rpc SendOrderToPaymentService (OrderRequest) returns (OrderResponse) {}
+  rpc ProcessPayment (OrderRequest) returns (OrderResponse) {}
 
 }
 
