@@ -46,8 +46,7 @@ func AddNewItemToCart(userId uint, itemId uint, quantity uint) {
 func isAlreadyShopping(userId uint) bool {
 	var order model.Order
 	r := db.Db.Where("user_id = ? AND status = ?", userId, "SHOPPING").Find(&order)
-	exists := r.RowsAffected > 0
-	if exists {
+	if r.RowsAffected > 0 {
 		return true
 	}
 	return false
@@ -63,8 +62,6 @@ func GetLastOrderForUserById(userId uint) []model.FullOrderInfo {
 	var order = findActiveShoppingCartForUserById(userId)
 	if order.ID != 0 {
 		var orderItems []model.OrderItem
-		//db.Db.Where("user_id = ? AND status = ?", userId, "SHOPPING").Preload("OrderItems").First(&order)
-		//db.Db.Model(&order).Where("order_id = ?", order.ID).Association("OrderItems").Find(&orderItems)
 		db.Db.Where("order_id = ? AND status = ?", order.ID, "SHOPPING").Find(&orderItems)
 		return fetchOrderItemsInfo([]uint{4, 5, 2})
 	}
